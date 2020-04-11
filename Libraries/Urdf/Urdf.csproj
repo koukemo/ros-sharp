@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachableComponent.cs" />
+    <Compile Include="AttachableComponentFactory.cs" />
+    <Compile Include="Attachables\AttachedDataValue.cs" />
+    <Compile Include="IAttachableComponent.cs" />
     <Compile Include="Joint.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Origin.cs" />

@@ -15,6 +15,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using RosSharp.Urdf.Attachables;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,6 +28,32 @@ namespace RosSharp.Urdf
 {
     public class Robot
     {
+
+        #region Static Constructors
+
+
+        public static Robot FromFile(string fileName)
+        {
+            return new Robot(fileName);
+        }
+        public static Robot FromContent(string urdfContent)
+        {
+            Robot r = new Robot();
+            XDocument xDoc = XDocument.Parse(urdfContent);
+            r.InitRobot(xDoc);
+            return r;
+        }
+
+        #endregion
+        #region Static Component Factories
+
+        public static List<AttachableComponentFactory<IAttachableComponent>> attachableComponentFactories 
+            = new List<AttachableComponentFactory<IAttachableComponent>>();
+
+        #endregion
+
+
+
         public string filename;
         public string name;
         public Link root;
@@ -34,28 +62,50 @@ namespace RosSharp.Urdf
         public List<Link> links;
         public List<Joint> joints;
         public List<Plugin> plugins;
+        
+        //public Dictionary<string, >
+        public List<AttachableComponent<IAttachableComponent>> attachedComponents;
+
+
+        public Robot()
+        {
+
+        }
 
         public Robot(string filename)
         {
             this.filename = filename;
             XDocument xdoc = XDocument.Load(filename);
+            InitRobot(xdoc);
+        }
+
+        /// <summary>
+        /// Initializes the robot with all its objects
+        /// </summary>
+        /// <param name="xdoc"></param>
+        private void InitRobot(XDocument xdoc)
+        {
             XElement node = xdoc.Element("robot");
             name = node.Attribute("name").Value;
 
             materials = ReadMaterials(node);
-            links = ReadLinks(node); 
-            joints = ReadJoints(node); 
-            plugins = ReadPlugins(node); 
+            links = ReadLinks(node);
+            joints = ReadJoints(node);
+            plugins = ReadPlugins(node);
+            attachedComponents = ReadAttachedComponents(node);
 
             // build tree structure from link and joint lists:
             foreach (Link link in links)
                 link.joints = joints.FindAll(v => v.parent == link.name);
             foreach (Joint joint in joints)
                 joint.ChildLink = links.Find(v => v.name == joint.child);
+            foreach (var attachedComponent in attachedComponents)
+                attachedComponent.component.parentLink = links.Find(x => x.name == attachedComponent.component.parent);
 
             // save root node only:
             root = FindRootLink(links, joints);
         }
+
 
         public Robot(string filename, string name)
         {
@@ -96,9 +146,26 @@ namespace RosSharp.Urdf
         {
             var plugins =
                 from child in node.Elements()
-                where child.Name != "link" && child.Name != "joint" && child.Name != "material"
+                where child.Name != "link" && child.Name != "joint" && child.Name != "material" && !attachableComponentFactories.Any(x => x.ClassName == child.Name)
                 select new Plugin(child.ToString());
             return plugins.ToList();
+        }
+
+
+        private List<AttachableComponent<IAttachableComponent>> ReadAttachedComponents(XElement node)
+        {
+            List<AttachableComponent<IAttachableComponent>> components = new List<AttachableComponent<IAttachableComponent>>();
+
+            foreach (var subNode in node.Elements().Where(x => attachableComponentFactories.Any(y => y.ClassName == x.Name)))
+            {
+                var instance = attachableComponentFactories.Find(x => x.ClassName == subNode.Name).ConstructAttachableInstance();
+
+                instance.Initialize(subNode);
+
+                components.Add(instance);
+            }
+
+            return components;
         }
 
         private static Link FindRootLink(List<Link> links, List<Joint> joints)
@@ -144,7 +211,7 @@ namespace RosSharp.Urdf
                     joint.WriteToUrdf(writer);
                 foreach (var plugin in plugins)
                     plugin.WriteToUrdf(writer);
-                
+
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
 
