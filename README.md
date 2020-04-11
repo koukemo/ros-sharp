@@ -6,7 +6,7 @@ Find some examples what you can do with ROS# [here](https://github.com/siemens/r
 
 ## Notes On This Fork ##
 
-This fork has some changes to allow a broader range of XML-Tags to be imported in the URDF files, like the Microsoft HoloLens. Like the main ROS# branch, use 2019.x or later.
+This fork has some changes to allow a broader range of XML-Tags to be imported in the URDF files. The original repository included classes called "Plugins" that were used whenever no matching class was found. This fork allows to define classNames that are mapped into instances of defined classes. Like the main ROS# branch, use 2019.x or later.
 
 #### Installation ### 
 
