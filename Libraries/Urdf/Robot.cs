@@ -47,7 +47,7 @@ namespace RosSharp.Urdf
         #endregion
         #region Static Component Factories
 
-        public static List<AttachableComponentFactory<IAttachableComponent>> attachableComponentFactories 
+        public static List<AttachableComponentFactory<IAttachableComponent>> attachableComponentFactories
             = new List<AttachableComponentFactory<IAttachableComponent>>();
 
         #endregion
@@ -62,7 +62,7 @@ namespace RosSharp.Urdf
         public List<Link> links;
         public List<Joint> joints;
         public List<Plugin> plugins;
-        
+
         //public Dictionary<string, >
         public List<AttachableComponent<IAttachableComponent>> attachedComponents;
 
@@ -100,7 +100,11 @@ namespace RosSharp.Urdf
             foreach (Joint joint in joints)
                 joint.ChildLink = links.Find(v => v.name == joint.child);
             foreach (var attachedComponent in attachedComponents)
-                attachedComponent.component.parentLink = links.Find(x => x.name == attachedComponent.component.parent);
+            {
+                Link parentLink = links.FirstOrDefault(x => x.name == attachedComponent.component.parent);
+                attachedComponent.component.parentLink = parentLink;
+                parentLink.attachableComponents.Add(attachedComponent);
+            }
 
             // save root node only:
             root = FindRootLink(links, joints);

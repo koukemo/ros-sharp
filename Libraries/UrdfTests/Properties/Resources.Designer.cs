@@ -98,5 +98,31 @@ namespace UrdfTests.Properties {
                 return ResourceManager.GetString("xmlResSingleNode", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; ?&gt;
+        ///
+        ///&lt;robot name=&quot;turtlebot&quot; xmlns:xacro=&quot;http://ros.org/wiki/xacro&quot;&gt;
+        ///
+        ///  &lt;link name=&quot;base_footprint&quot;/&gt;
+        ///  &lt;joint name=&quot;base_joint&quot; type=&quot;fixed&quot;&gt;
+        ///    &lt;origin rpy=&quot;0 0 0&quot; xyz=&quot;0 0 0.0102&quot;/&gt;
+        ///    &lt;parent link=&quot;base_footprint&quot;/&gt;
+        ///    &lt;child link=&quot;base_link&quot;/&gt;
+        ///  &lt;/joint&gt;
+        ///  &lt;tooltip name=&quot;base_tooltip&quot; topic=&quot;/test/topic&quot;&gt;
+        ///	&lt;parent link=&quot;base_footprint&quot;/&gt;
+        ///    &lt;origin rpy=&quot;0 0 0&quot; xyz=&quot;0 0 0.0102&quot;/&gt;
+        ///  &lt;/tooltip&gt;
+        ///  &lt;link name=&quot;base_link&quot;&gt;
+        ///    &lt;visual&gt;
+        ///      &lt;geometry&gt;
+        ///        &lt;!-- ne [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string xmlResSingleNodeWithTooltip {
+            get {
+                return ResourceManager.GetString("xmlResSingleNodeWithTooltip", resourceCulture);
+            }
+        }
     }
 }
