@@ -34,7 +34,7 @@ namespace RosSharp.RosBridgeClientTest
         // launch after starting:
         // rosservice call /service_response_test
 
-        private static readonly string Uri = "ws://192.168.56.101:9090";
+        private static readonly string Uri = "ws://localhost:9090";
         private static RosSocket RosSocket;
         private ManualResetEvent OnMessageReceived = new ManualResetEvent(false);
         private ManualResetEvent OnServiceReceived = new ManualResetEvent(false);
@@ -51,7 +51,7 @@ namespace RosSharp.RosBridgeClientTest
         {
             RosSocket.Close();
         }
-        
+
         [Test]
         public void PublicationTest()
         {
@@ -60,10 +60,18 @@ namespace RosSharp.RosBridgeClientTest
             {
                 data = "publication test message data"
             };
-            RosSocket.Publish(id, message);
-            RosSocket.Unadvertise(id);
-            Thread.Sleep(100);
-            Assert.IsTrue(true);
+            try
+            {
+                RosSocket.Publish(id, message);
+                RosSocket.Unadvertise(id);
+                Thread.Sleep(100);
+                Assert.IsTrue(true);
+            }
+            catch (System.Exception)
+            {
+                Assert.IsTrue(false);
+                throw;
+            }
         }
 
         [Test]

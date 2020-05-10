@@ -32,6 +32,11 @@ namespace RosSharp.RosBridgeClientTest
 
         public static void Main(string[] args)
         {
+            UrdfTransferFromRosConsoleExample.Main(null);
+            return;
+
+
+
             string uri = "ws://192.168.56.102:9090";
             string robotDescription = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "TestUrdf", "R2D2WithTexture.urdf");
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
 © Siemens AG, 2017-2018
 Author: Dr. Martin Bischoff (martin.bischoff@siemens.com)
 
@@ -35,7 +35,8 @@ namespace RosSharp.RosBridgeClient.UrdfTransfer
         {
             get
             {
-                Status["robotNameReceived"].WaitOne();
+                if (String.IsNullOrEmpty(RobotName))
+                    Status["robotNameReceived"].WaitOne();
                 return Path.Combine(localUrdfDirectory, RobotName);
             }
         }
@@ -79,7 +80,7 @@ namespace RosSharp.RosBridgeClient.UrdfTransfer
         private void ReceiveRobotDescription(ServiceReceiver<rosapi.GetParamRequest, rosapi.GetParamResponse> serviceReceiver, rosapi.GetParamResponse serviceResponse)
         {
             string robotDescription = FormatTextFileContents(serviceResponse.value);
-
+            if (robotDescription == "default") return;
             Thread importResourceFilesThread = new Thread(() => ImportResourceFiles(robotDescription));
             importResourceFilesThread.Start();
 
@@ -89,7 +90,7 @@ namespace RosSharp.RosBridgeClient.UrdfTransfer
             Status["robotDescriptionReceived"].Set();
         }
 
-        private void ImportResourceFiles(string fileContents)
+        public void ImportResourceFiles(string fileContents)
         {
             List<Uri> resourceFileUris = ReadResourceFileUris(XDocument.Parse(fileContents));
             var serviceReceivers = RequestResourceFiles(resourceFileUris);
@@ -165,9 +166,17 @@ namespace RosSharp.RosBridgeClient.UrdfTransfer
 
         private void WriteBinaryResponseToFile(string relativeLocalFilename, byte[] fileContents)
         {
-            string filename = LocalUrdfDirectory + relativeLocalFilename;
-            Directory.CreateDirectory(Path.GetDirectoryName(filename));
-            File.WriteAllBytes(filename, fileContents);
+            try
+            {
+
+                string filename = LocalUrdfDirectory + relativeLocalFilename;
+                Directory.CreateDirectory(Path.GetDirectoryName(filename));
+                File.WriteAllBytes(filename, fileContents);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("shrick");
+            }
         }
 
         private void WriteTextFile(string relativeLocalFilename, string fileContents)

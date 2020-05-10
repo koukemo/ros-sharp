@@ -1,4 +1,4 @@
-﻿/*
+/*
 © Siemens AG, 2017-2018
 Author: Dr. Martin Bischoff (martin.bischoff@siemens.com)
 
@@ -144,7 +144,6 @@ namespace RosSharp.RosBridgeClient
             Console.WriteLine("Sending:\n" + JsonConvert.SerializeObject(communication, Formatting.Indented) + "\n");
 #endif
             protocol.Send(Serialize<T>(communication));
-            return;
         }
 
         private void Receive(object sender, EventArgs e)

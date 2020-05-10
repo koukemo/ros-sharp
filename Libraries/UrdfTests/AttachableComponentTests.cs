@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+using RosSharp.RosBridgeClient;
+using RosSharp.RosBridgeClient.UrdfTransfer;
 using RosSharp.Urdf;
 using RosSharp.Urdf.Attachables;
 using System;
@@ -61,6 +64,26 @@ namespace UrdfTests
             Assert.True((robot.attachedComponents[0].component as AttachedDataValue).topic == "/test/topic");
             //Assert.True(robot.attachedComponents[0].parentLink != null);
             //Assert.True(robot.attachedComponents[0].component != null);
+        }
+
+        [Fact]
+        public void ShouldImportFilesDirectly()
+        {
+            string uri = "ws://localhost:9090";
+            RosSharp.RosBridgeClient.Protocols.WebSocketNetProtocol webSocketNetProtocol = new RosSharp.RosBridgeClient.Protocols.WebSocketNetProtocol(uri);
+            RosSocket rosSocket = new RosSocket(webSocketNetProtocol);
+            string urdfParameter = "/robot_description";
+            string t = JsonConvert.SerializeObject(rosSocket);
+
+            // Publication:
+            UrdfTransferFromRos urdfTransferFromRos = new UrdfTransferFromRos(rosSocket, System.IO.Directory.GetCurrentDirectory(), urdfParameter);
+            //urdfTransferFromRos.Transfer();
+            urdfTransferFromRos.RobotName = "UR3";
+            urdfTransferFromRos.ImportResourceFiles(UrdfTests.Properties.Resources.xmlUr3);
+            urdfTransferFromRos.Status["resourceFilesReceived"].WaitOne();
+            Console.WriteLine("Resource Files received " + urdfTransferFromRos.FilesBeingProcessed.Count);
+
+            rosSocket.Close();
         }
     }
 }
