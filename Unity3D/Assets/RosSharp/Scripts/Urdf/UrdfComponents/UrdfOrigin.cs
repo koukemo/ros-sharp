@@ -1,4 +1,4 @@
-﻿/*
+/*
 © Siemens AG, 2018
 Author: Suzannah Smith (suzannah.smith@siemens.com)
 
@@ -25,8 +25,10 @@ namespace RosSharp.Urdf
 
         public static void ImportOriginData(Transform transform, Origin origin)
         {
-            if (origin != null)
+            if (origin != null && transform.localPosition == Vector3.zero && transform.localRotation == new Quaternion(0, 0, 0, 1))
             {
+                //object has not been moved so far. Since this code only applies to objects in the Robot hierarchy, 
+                //this should result in the components not being moved after their initial movement.
                 transform.Translate(GetPositionFromUrdf(origin));
                 transform.Rotate(GetRotationFromUrdf(origin));
             }
