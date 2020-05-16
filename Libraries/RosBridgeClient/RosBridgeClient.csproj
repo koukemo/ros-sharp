@@ -97,7 +97,6 @@
     <Compile Include="RosSocket.cs" />
     <Compile Include="Communication.cs" />
     <Compile Include="Services\FileServer\GetBinaryFile.cs" />
-    <Compile Include="Services\FileServer\GetFile.cs" />
     <Compile Include="Services\FileServer\SaveBinaryFile.cs" />
     <Compile Include="Services\RosApi\GetParam.cs" />
     <Compile Include="Services\RosApi\SetParam.cs" />

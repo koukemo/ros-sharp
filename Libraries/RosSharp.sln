@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrdfTest", "UrdfTest\UrdfTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RosBridgeClientUWP", "RosBridgeClientUWP\RosBridgeClientUWP.csproj", "{473E1A95-178E-4377-97A5-91D0FDACFE7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrdfTests", "UrdfTests\UrdfTests.csproj", "{591E1F6F-A8E1-4B9C-9060-7F56ECEC6936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrdfTests", "UrdfTests\UrdfTests.csproj", "{591E1F6F-A8E1-4B9C-9060-7F56ECEC6936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
