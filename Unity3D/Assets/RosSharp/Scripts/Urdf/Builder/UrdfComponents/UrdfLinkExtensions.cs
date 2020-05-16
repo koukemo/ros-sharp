@@ -15,28 +15,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RosSharp.Urdf.Editor
 {
     public static class UrdfLinkExtensions
-    { 
-        public static UrdfLink Create(Transform parent, Link link = null, Joint joint = null)
+    {
+        public static UrdfLink Synchronize(Transform parent, Link link = null, Joint joint = null)
         {
-            GameObject linkObject = new GameObject("link");
-            linkObject.transform.SetParentAndAlign(parent);
-            UrdfLink urdfLink = linkObject.AddComponent<UrdfLink>();
+            parent.FindChildOrCreateWithComponent<UrdfLink>(link != null ? link.name : Utils.GenerateNonReferenceID(link), out GameObject linkObject, out UrdfLink urdfLink);
 
-            UrdfVisualsExtensions.Create(linkObject.transform, link?.visuals);
-            UrdfCollisionsExtensions.Create(linkObject.transform, link?.collisions);
-            
+            if (link != null)
+            {
+                foreach (var attachedComponent in link.attachableComponents)
+                {
+                    AttachedDataSynchronizer.Instance.HandleAttachedComponent(linkObject, attachedComponent, link);
+                }
+            }
+
+            UrdfVisualsExtensions.Synchronize(linkObject.transform, link?.visuals);
+            UrdfCollisionsExtensions.Synchronize(linkObject.transform, link?.collisions);
+
             if (link != null)
                 urdfLink.ImportLinkData(link, joint);
             else
             {
-                UrdfInertial.Create(linkObject);
+                UrdfInertial.Synchronize(linkObject);
                 UnityEditor.EditorGUIUtility.PingObject(linkObject);
             }
+
+            //Remove Attached Values that are too much
+            var attachedValueChildren = linkObject.GetComponentsInDirectChildrenFromGameobject<AttachedValue>();
+            attachedValueChildren.RemoveAll(x => link.attachableComponents.Any(y => y.component.name == x.name));
+            Utils.DestroyAll(attachedValueChildren.Select(x => x.gameObject));
 
             return urdfLink;
         }
@@ -53,25 +67,34 @@ namespace RosSharp.Urdf.Editor
 
             if (link.inertial != null)
             {
-                UrdfInertial.Create(urdfLink.gameObject, link.inertial);
+                UrdfInertial.Synchronize(urdfLink.gameObject, link.inertial);
 
                 if (joint != null)
-                    UrdfJoint.Create(urdfLink.gameObject, UrdfJoint.GetJointType(joint.type), joint);
+                    UrdfJoint.Synchronize(urdfLink.gameObject, UrdfJoint.GetJointType(joint.type), joint);
             }
             else if (joint != null)
                 Debug.LogWarning("No Joint Component will be created in GameObject \"" + urdfLink.gameObject.name + "\" as it has no Rigidbody Component.\n"
                                  + "Please define an Inertial for Link \"" + link.name + "\" in the URDF file to create a Rigidbody Component.\n", urdfLink.gameObject);
 
-            foreach (Joint childJoint in link.joints)
+            foreach (Joint childJoint in link.joints.Where(x => x.ChildLink != null))
             {
                 Link child = childJoint.ChildLink;
-                UrdfLinkExtensions.Create(urdfLink.transform, child, childJoint);
+                UrdfLinkExtensions.Synchronize(urdfLink.transform, child, childJoint);
             }
-        } 
-        
+
+            var linkChildren = Utils.GetComponentsInDirectChildrenFromGameobject<UrdfLink>(urdfLink.gameObject);
+            List<string> wantedObjectNames = link.joints
+                .Where(x => x.ChildLink != null)
+                .Select(x => String.IsNullOrEmpty(x.child) ? Utils.GenerateNonReferenceID(x.ChildLink) : x.child)
+                .ToList();
+
+            linkChildren.RemoveAll(x => wantedObjectNames.Contains(x.name));
+            Utils.DestroyAll(linkChildren.Select(x => x.gameObject));
+        }
+
         public static Link ExportLinkData(this UrdfLink urdfLink)
         {
-            if(urdfLink.transform.localScale != Vector3.one)
+            if (urdfLink.transform.localScale != Vector3.one)
                 Debug.LogWarning("Only visuals should be scaled. Scale on link \"" + urdfLink.gameObject.name + "\" cannot be saved to the URDF file.", urdfLink.gameObject);
 
             UrdfInertial urdfInertial = urdfLink.gameObject.GetComponent<UrdfInertial>();
@@ -81,7 +104,7 @@ namespace RosSharp.Urdf.Editor
                 collisions = urdfLink.GetComponentInChildren<UrdfCollisions>().ExportCollisionsData(),
                 inertial = urdfInertial == null ? null : urdfInertial.ExportInertialData()
             };
-            
+
             return link;
         }
     }

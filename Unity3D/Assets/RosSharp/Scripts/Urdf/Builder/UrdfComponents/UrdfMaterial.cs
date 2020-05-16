@@ -30,10 +30,21 @@ namespace RosSharp.Urdf.Editor
 
         public static Dictionary<string, Link.Visual.Material> Materials =
             new Dictionary<string, Link.Visual.Material>();
-        
+
+        /// <summary>
+        /// A dictionery containing all created materials. The key : string is the name of the urdf material
+        /// </summary>
+        public static Dictionary<string, Material> MaterialsCreated = new Dictionary<string, Material>();
+
+
         #region Import
         private static Material CreateMaterial(this Link.Visual.Material urdfMaterial)
         {
+            if (MaterialsCreated.ContainsKey(urdfMaterial.name))
+            {
+                return MaterialsCreated[urdfMaterial.name];
+            }
+
             if (urdfMaterial.name == "")
                 urdfMaterial.name = GenerateMaterialName(urdfMaterial);
 
@@ -42,6 +53,9 @@ namespace RosSharp.Urdf.Editor
                 return material;
 
             material = InitializeMaterial();
+
+            //Store the material for later re-use
+            MaterialsCreated[urdfMaterial.name] = material;
 
             if (urdfMaterial.color != null)
                 material.color = CreateColor(urdfMaterial.color);
@@ -61,7 +75,8 @@ namespace RosSharp.Urdf.Editor
             material = InitializeMaterial();
             material.color = new Color(0.33f, 0.33f, 0.33f, 0.0f);
 
-            AssetDatabase.CreateAsset(material, UrdfAssetPathHandler.GetMaterialAssetPath(DefaultMaterialName));
+            string newAssetPath = UrdfAssetPathHandler.GetMaterialAssetPath(DefaultMaterialName);
+            AssetDatabase.CreateAsset(material, newAssetPath);
         }
 
         private static Material InitializeMaterial()
@@ -112,7 +127,7 @@ namespace RosSharp.Urdf.Editor
             foreach (var material in robot.materials)
                 CreateMaterial(material);
         }
-        
+
         public static void SetUrdfMaterial(GameObject gameObject, Link.Visual.Material urdfMaterial)
         {
             if (urdfMaterial != null)
@@ -181,7 +196,7 @@ namespace RosSharp.Urdf.Editor
         {
             string oldTexturePath = UrdfAssetPathHandler.GetFullAssetPath(AssetDatabase.GetAssetPath(texture));
             string newTexturePath = UrdfExportPathHandler.GetNewResourcePath(Path.GetFileName(oldTexturePath));
-            if(oldTexturePath != newTexturePath)
+            if (oldTexturePath != newTexturePath)
                 File.Copy(oldTexturePath, newTexturePath, true);
 
             string packagePath = UrdfExportPathHandler.GetPackagePathForResource(newTexturePath);

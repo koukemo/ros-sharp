@@ -22,20 +22,27 @@ namespace RosSharp.Urdf.Editor
 {
     public static class UrdfVisualsExtensions
     {
-        public static void Create(Transform parent, List<Link.Visual> visuals = null)
+        public static void Synchronize(Transform parent, List<Link.Visual> visuals = null)
         {
-            GameObject visualsObject = new GameObject("Visuals");
-            visualsObject.transform.SetParentAndAlign(parent);
-            UrdfVisuals urdfVisuals = visualsObject.AddComponent<UrdfVisuals>();
+            if (parent.FindChildOrCreateWithComponent<UrdfVisuals>("Visuals", out GameObject visualsObject, out UrdfVisuals urdfVisuals))
+            {
+                visualsObject.hideFlags = HideFlags.NotEditable;
+                urdfVisuals.hideFlags = HideFlags.None;
+            }
 
-            visualsObject.hideFlags = HideFlags.NotEditable;
-            urdfVisuals.hideFlags = HideFlags.None;
-
+            //Create all visuals that are in the list but do not yet exist
             if (visuals != null)
             {
                 foreach (Link.Visual visual in visuals)
+                {
                     UrdfVisualExtensions.Create(urdfVisuals.transform, visual);
+                }
             }
+
+            //Destroy existing visuals that are not in the list
+            var vis = visualsObject.GetComponentsInSelf<UrdfVisual>();
+            vis.RemoveAll(x => visuals.Any(y => y.name == x.name));
+            Utils.DestroyAll(vis);
         }
 
         public static List<Link.Visual> ExportVisualsData(this UrdfVisuals urdfVisuals)
