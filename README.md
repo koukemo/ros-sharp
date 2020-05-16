@@ -17,6 +17,14 @@ This fork has some changes to allow a broader range of XML-Tags to be imported i
 
   Robot.attachableComponentFactories.Add(tooltipFactory);
 ```
+
+This factory will now parse xml-classes such as:
+```
+<tooltip name="MyCoolTooltip">
+  <parent name="SomeJoint"/>
+  <origin .../>
+</tooltip>
+```
 The XML-Parser will now create instances of `AttachedDataValue` class, and fill its values via reflection. The `Robot`-Object has the according fields 
 
 Similarly to the other objects in the Robot class (Links, Joints, etc.), the `IAttachableComponent` contains these fields:
@@ -50,6 +58,7 @@ On the Unity side this fork contains two main features:
 - The code was adjusted to run with multiple robot instances during runtime
 - The code can now synchronize Robots with URDF files, instead of only creating them. This means, that if a URDF file dynamically changes (for example a sensor was attached during the runtime), the new urdf can be passed into the `RobotBuilder` and it adjusts updates the existing GameObject with it.
 
+## Original ReadMe:
 #### Installation ### 
 
 To use ROS# with the HoloLens, simply clone this fork and stay on the master branch. Then open the Unity project and import the [Microsoft Mixed Reality Toolkit](https://github.com/Microsoft/MixedRealityToolkit-Unity). The toolkit provides a version of Newtonsoft.Json that works on the HoloLens, as well as other tools/features you will want during HoloLens development. Follow the Mixed Reality Toolkit configuration instructions, and you will be good to go. I use the 2017 version of MRTK, not vNext.
