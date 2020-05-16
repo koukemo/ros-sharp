@@ -5,8 +5,50 @@
 Find some examples what you can do with ROS# [here](https://github.com/siemens/ros-sharp/wiki/Info_Showcases).
 
 ## Notes On This Fork ##
+## Change 1: URDF Parsing capabilities ##
+This fork has some changes to allow a broader range of XML-Tags to be imported in the URDF files. The original repository included classes called "Plugins" that were used whenever no matching class was found. This fork allows to define XML-classNames that are mapped into instances of defined classes. Like the main ROS# branch, use 2019.x or later.
 
-This fork has some changes to allow a broader range of XML-Tags to be imported in the URDF files. The original repository included classes called "Plugins" that were used whenever no matching class was found. This fork allows to define classNames that are mapped into instances of defined classes. Like the main ROS# branch, use 2019.x or later.
+```
+  //Attach tooltip factory to the Robot Parser
+  var tooltipFactory = new AttachableComponentFactory<IAttachableComponent>("tooltip")
+  {
+      Constructor = () => new RosSharp.Urdf.Attachables.AttachedDataValue(),
+  };
+
+  Robot.attachableComponentFactories.Add(tooltipFactory);
+```
+The XML-Parser will now create instances of `AttachedDataValue` class, and fill its values via reflection. The `Robot`-Object has the according fields 
+
+Similarly to the other objects in the Robot class (Links, Joints, etc.), the `IAttachableComponent` contains these fields:
+``` 
+    public interface IAttachableComponent
+    {
+        string name { get; set; }
+        string parent { get; set; }
+        Origin origin { get; set; }
+        Link parentLink { get; set; }
+    }
+```
+Which can of course be extended by the class implementing the interface
+```
+    public class AttachedDataValue : IAttachableComponent
+    {
+        public AttachedDataValue();
+
+        public string name { get; set; }
+        public string parent { get; set; }
+        public Origin origin { get; set; }
+        public string topic { get; set; }
+        public Link parentLink { get; set; }
+    }
+```
+The AttachableComponentFactory offers methods to extract all objects that were found in the urdf file:
+`public List<K> ExtractAttachableComponents<K>(Robot robot) where K : IAttachableComponent;`
+
+## Change 2: Unity GameObject Creation from Robot objects ##
+On the Unity side this fork contains two main features:
+- The code was adjusted to run with multiple robot instances during runtime
+- The code can now synchronize Robots with URDF files, instead of only creating them. This means, that if a URDF file dynamically changes (for example a sensor was attached during the runtime), the new urdf can be passed into the `RobotBuilder` and it adjusts updates the existing GameObject with it.
 
 #### Installation ### 
 
