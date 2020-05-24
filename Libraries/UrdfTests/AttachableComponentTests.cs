@@ -13,7 +13,7 @@ namespace UrdfTests
         [Fact]
         public void ShouldCreateInstance()
         {
-            string xml = UrdfTests.Properties.Resources.xmlResSingleNode;
+            string xml = UrdfTests.Properties.Resources.UR5Tooltip;
 
             AttachableComponentFactory<IAttachableComponent> factory =
                 new AttachableComponentFactory<IAttachableComponent>("tooltip")
@@ -79,7 +79,7 @@ namespace UrdfTests
             UrdfTransferFromRos urdfTransferFromRos = new UrdfTransferFromRos(rosSocket, System.IO.Directory.GetCurrentDirectory(), urdfParameter);
             //urdfTransferFromRos.Transfer();
             urdfTransferFromRos.RobotName = "UR3";
-            urdfTransferFromRos.ImportResourceFiles(UrdfTests.Properties.Resources.xmlUr3);
+            urdfTransferFromRos.ImportResourceFiles(UrdfTests.Properties.Resources.xmlUr5);
             urdfTransferFromRos.Status["resourceFilesReceived"].WaitOne();
             Console.WriteLine("Resource Files received " + urdfTransferFromRos.FilesBeingProcessed.Count);
 

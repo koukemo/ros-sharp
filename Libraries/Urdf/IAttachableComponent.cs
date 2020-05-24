@@ -10,6 +10,7 @@ namespace RosSharp.Urdf
     {
         string name { get; set; }
         string parent { get; set; }
+        string topic { get; set; }
         Origin origin { get; set; }
 
         Link parentLink { get; set; }
