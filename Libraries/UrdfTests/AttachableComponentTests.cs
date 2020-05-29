@@ -13,7 +13,7 @@ namespace UrdfTests
         [Fact]
         public void ShouldCreateInstance()
         {
-            string xml = UrdfTests.Properties.Resources.UR5Tooltip;
+            string xml = UrdfTests.Properties.Resources.anymal;
 
             AttachableComponentFactory<IAttachableComponent> factory =
                 new AttachableComponentFactory<IAttachableComponent>("tooltip")

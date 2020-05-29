@@ -27,9 +27,8 @@ namespace RosSharp.RosBridgeClientTest
     {
         public static void Main(string[] args)
         {
-            string uri = "ws://192.168.119.129:9090";
+            string uri = "ws://192.168.50.85:9090";
             //uri = "ws://127.0.0.1:9090";
-            uri = "ws://localhost:9090";
 
             for (int i = 1; i < 3; i++)
             {
