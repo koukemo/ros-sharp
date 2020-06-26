@@ -17,8 +17,7 @@ using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
 {
-    [RequireComponent(typeof(RosConnector))]
-    public abstract class Subscriber<T> : MonoBehaviour where T: Message
+    public abstract class Subscriber<T> : MonoBehaviour where T: Message, new()
     {
         public string Topic;
         public float TimeStep;
