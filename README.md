@@ -58,6 +58,10 @@ On the Unity side this fork contains two main features:
 - The code was adjusted to run with multiple robot instances during runtime
 - The code can now synchronize Robots with URDF files, instead of only creating them. This means, that if a URDF file dynamically changes (for example a sensor was attached during the runtime), the new urdf can be passed into the `RobotBuilder` and it adjusts updates the existing GameObject with it.
 
+## Change 3: AOT Compilability ##
+This repository is fully AOT compilable, which is important for Unity's IL2CPP compiler to work properly.
+Changes were made to the actual ROS# library and also to the Unity scripts.
+
 ## Original ReadMe:
 #### Installation ### 
 
