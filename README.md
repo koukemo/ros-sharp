@@ -62,6 +62,12 @@ On the Unity side this fork contains two main features:
 This repository is fully AOT compilable, which is important for Unity's IL2CPP compiler to work properly.
 Changes were made to the actual ROS# library and also to the Unity scripts.
 
+## Change 3: AOT compilability
+In order to build for the HoloLens using the IL2CPP compiler, all libraries used must be AOT compilable. Even though many aspects of the System.Reflection namespace should not make problems, it did not work in our case. Thus, this repo has all System.Reflection parts removed and the issues were solved in another way.
+
+## Change 4: Unity.Editor Mode
+Alot of the original ROS# repo was written for the Editor mode, which means, that alot of the functionalieties would not work in built and deployed apps. This was fixed here.
+
 ## Original ReadMe:
 #### Installation ### 
 
