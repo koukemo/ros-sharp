@@ -28,7 +28,7 @@ It is important that the [link.xml file](https://github.com/EricVoll/ros-sharp/b
 
 With this setup your project should work in Editor Mode and in UWP-Mode.
 
-This (YouTube Video Tutorial)[https://www.youtube.com/watch?v=mnMYT521uXY&ab_channel=BryceIkeda9] explains how to setup a new project using this Ros# fork for UWP. (Thanks to @bryceikeda)
+This [YouTube Video Tutorial](https://www.youtube.com/watch?v=mnMYT521uXY&ab_channel=BryceIkeda9) explains how to setup a new project using this Ros# fork for UWP. (Thanks to @bryceikeda)
 
 The simple Demo-App subscribes to the /clock topic and displays the values received. This was successfully deployed to HoloLens 2
 ![deployed RosSharp UWP to HoloLens2](https://www.github.com/EricVoll/ros-sharp/wiki/HoloLens.jpg)
