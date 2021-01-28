@@ -45,7 +45,7 @@ The DLL was created by creating a UWP class library project, and then linking al
 Some parts of the library and Unity Scripts needed some platform specific code, which was done with the "WINDOWS_UWP" compiler constant.
 
 ### Compatibile With Mixed Reality Toolkit ###
-This branch is compatible with Microsoft's Mixed Reality Toolkit. Tested with v. 2.4 and 2.3
+This branch is compatible with Microsoft's Mixed Reality Toolkit. Tested with v. 2.5, 2.4 and 2.3
 
 Please see the [Wiki](https://github.com/siemens/ros-sharp/wiki/), especially [Section 3.2](https://github.com/siemens/ros-sharp/wiki/User_App_NoROS_ExportURDFOnWindows), for an explanation of how to use the new framework.
 
