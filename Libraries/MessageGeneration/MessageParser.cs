@@ -121,7 +121,7 @@ namespace RosSharp.RosBridgeClient.MessageGeneration
                     );
 
                 // Write ROS package name
-                writer.Write(MsgAutoGenUtilities.TWO_TABS + "public const string RosMessageName = \"" + rosPackageName + "/" + rosMsgName + "\";\n\n");
+                writer.Write(MsgAutoGenUtilities.TWO_TABS + "public override string RosMessageName => \"" + rosPackageName + "/" + rosMsgName + "\";\n\n");
 
                 // Write body
                 writer.Write(body);
