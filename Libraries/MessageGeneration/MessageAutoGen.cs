@@ -19,6 +19,7 @@ using System.IO;
 using System.Collections.Generic;
 
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace RosSharp.RosBridgeClient.MessageGeneration
 {
@@ -29,7 +30,7 @@ namespace RosSharp.RosBridgeClient.MessageGeneration
         {
             // If no ROS package name is provided, extract from path
             if (rosPackageName.Equals("")) {
-                string[] hierarchy = inPath.Trim(new[] { '.', '/', '\\' }).Split(new char[] { '/', '\\' });
+                string[] hierarchy = Regex.Replace(inPath, @"^(\.\.\/|\.\\|\.\/|\/)", "").Split(new char[] { '/', '\\' });
                 rosPackageName = hierarchy[hierarchy.Length - 3];
             }
 
