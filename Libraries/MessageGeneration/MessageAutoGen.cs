@@ -29,7 +29,7 @@ namespace RosSharp.RosBridgeClient.MessageGeneration
         {
             // If no ROS package name is provided, extract from path
             if (rosPackageName.Equals("")) {
-                string[] hierarchy = inPath.Split(new char[] { '/', '\\' });
+                string[] hierarchy = inPath.Trim(new[] { '.', '/', '\\' }).Split(new char[] { '/', '\\' });
                 rosPackageName = hierarchy[hierarchy.Length - 3];
             }
 
