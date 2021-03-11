@@ -30,8 +30,12 @@ namespace RosSharp.RosBridgeClient.MessageGeneration
         {
             // If no ROS package name is provided, extract from path
             if (rosPackageName.Equals("")) {
-                string[] hierarchy = Regex.Replace(inPath, @"^(\.\.\/|\.\\|\.\/|\/)", "").Split(new char[] { '/', '\\' });
-                rosPackageName = hierarchy[hierarchy.Length - 3];
+                var match = Regex.Match(inPath, @"([\w\-. ]+)[\/|\\][^\/^\\]+[\/|\\][\w\-. ]+.msg$");
+                if (!match.Success)
+                {
+                    throw new Exception("The package name could not be retreived from the input path");
+                }
+                rosPackageName = match.Groups[1].Value;
             }
 
             outPath = Path.Combine(outPath, MsgAutoGenUtilities.ResolvePackageName(rosPackageName));
