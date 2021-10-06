@@ -11,6 +11,9 @@ Community provided a variety of other application examples for ROS# [here](https
 
 This fork has some changes to allow ROS# to be used in UWP projects, such as the Microsoft HoloLens (1 & 2 - tested and deployed successfully). Like the main ROS# branch, use 2019.x or later.
 
+## Maintainer Notes
+Since work on this fork for UWP started, the new [Unity Robotics Hub](https://github.com/Unity-Technologies/Unity-Robotics-Hub) was released. The UnityRoboticsHub works (almost out of the box) with UWP builds for devices such as the HoloLens 2. You can find a lengthy tutorial on how to install/use the system [here](https://www.youtube.com/watch?v=HV1v8mXNmLA). Instead of following this tutorial, you can also follow the default tutorial by UnityTechnologies on their Wiki. In order to build for UWP you will only have to enable UWP build-support step described [here](https://youtu.be/HV1v8mXNmLA?t=732)
+
 ## How to get started ##
 
 Step 1: Clone this project
