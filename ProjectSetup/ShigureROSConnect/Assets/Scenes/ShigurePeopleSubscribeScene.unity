@@ -299,6 +299,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &964868196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 964868198}
+  - component: {fileID: 964868197}
+  m_Layer: 0
+  m_Name: Console
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &964868197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964868196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e5baf76c9a824fe3a92fad0380bbd78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleKey: 0
+  openOnStart: 1
+  shakeToOpen: 1
+  shakeRequiresTouch: 0
+  shakeAcceleration: 3
+  toggleThresholdSeconds: 0.5
+  restrictLogCount: 0
+  maxLogCount: 1000
+  collapseLogOnStart: 0
+  logFontSize: 12
+  scaleFactor: 1
+--- !u!4 &964868198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964868196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7.78, z: 3.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1191811094
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -424,178 +478,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1959952958
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1959952963}
-  - component: {fileID: 1959952962}
-  - component: {fileID: 1959952959}
-  m_Layer: 0
-  m_Name: ShigurePeopleLog
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1959952959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959952958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: Nothing subscribed.
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 0
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 1
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0.2632227}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1959952962}
-  m_maskType: 0
-  _SortingLayer: 0
-  _SortingLayerID: 0
-  _SortingOrder: 0
---- !u!23 &1959952962
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959952958}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!224 &1959952963
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959952958}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.46}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
-  m_Children: []
-  m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 8.2}
-  m_SizeDelta: {x: 100, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &4352267460628256069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,7 +597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Topic: /clock
   TimeStep: 0
-  TextElement: {fileID: 1959952959}
+  TextElement: {fileID: 0}
 --- !u!114 &4352267460628256073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,135 +607,185 @@ MonoBehaviour:
   m_GameObject: {fileID: 4352267460628256070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8254c509d3c73464fbcabbab92e2cc9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f18525da26be844f88c9f1bec58cae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Topic: /shigure/people_detection
   TimeStep: 0
-  TextElement: {fileID: 1959952959}
-  bodyPartData:
-    part_name_0: 
-    point_x_0: 0
-    point_y_0: 0
-    point_z_0: 0
-    score_0: 0
-    part_name_1: 
-    point_x_1: 0
-    point_y_1: 0
-    point_z_1: 0
-    score_1: 0
-    part_name_2: 
-    point_x_2: 0
-    point_y_2: 0
-    point_z_2: 0
-    score_2: 0
-    part_name_3: 
-    point_x_3: 0
-    point_y_3: 0
-    point_z_3: 0
-    score_3: 0
-    part_name_4: 
-    point_x_4: 0
-    point_y_4: 0
-    point_z_4: 0
-    score_4: 0
-    part_name_5: 
-    point_x_5: 0
-    point_y_5: 0
-    point_z_5: 0
-    score_5: 0
-    part_name_6: 
-    point_x_6: 0
-    point_y_6: 0
-    point_z_6: 0
-    score_6: 0
-    part_name_7: 
-    point_x_7: 0
-    point_y_7: 0
-    point_z_7: 0
-    score_7: 0
-    part_name_8: 
-    point_x_8: 0
-    point_y_8: 0
-    point_z_8: 0
-    score_8: 0
-    part_name_9: 
-    point_x_9: 0
-    point_y_9: 0
-    point_z_9: 0
-    score_9: 0
-    part_name_10: 
-    point_x_10: 0
-    point_y_10: 0
-    point_z_10: 0
-    score_10: 0
-    part_name_11: 
-    point_x_11: 0
-    point_y_11: 0
-    point_z_11: 0
-    score_11: 0
-    part_name_12: 
-    point_x_12: 0
-    point_y_12: 0
-    point_z_12: 0
-    score_12: 0
-    part_name_13: 
-    point_x_13: 0
-    point_y_13: 0
-    point_z_13: 0
-    score_13: 0
-    part_name_14: 
-    point_x_14: 0
-    point_y_14: 0
-    point_z_14: 0
-    score_14: 0
-    part_name_15: 
-    point_x_15: 0
-    point_y_15: 0
-    point_z_15: 0
-    score_15: 0
-    part_name_16: 
-    point_x_16: 0
-    point_y_16: 0
-    point_z_16: 0
-    score_16: 0
-    part_name_17: 
-    point_x_17: 0
-    point_y_17: 0
-    point_z_17: 0
-    score_17: 0
-    part_name_18: 
-    point_x_18: 0
-    point_y_18: 0
-    point_z_18: 0
-    score_18: 0
-    part_name_19: 
-    point_x_19: 0
-    point_y_19: 0
-    point_z_19: 0
-    score_19: 0
-    part_name_20: 
-    point_x_20: 0
-    point_y_20: 0
-    point_z_20: 0
-    score_20: 0
-    part_name_21: 
-    point_x_21: 0
-    point_y_21: 0
-    point_z_21: 0
-    score_21: 0
-    part_name_22: 
-    point_x_22: 0
-    point_y_22: 0
-    point_z_22: 0
-    score_22: 0
-    part_name_23: 
-    point_x_23: 0
-    point_y_23: 0
-    point_z_23: 0
-    score_23: 0
-    part_name_24: 
-    point_x_24: 0
-    point_y_24: 0
-    point_z_24: 0
-    score_24: 0
+  bodyPartInfos:
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  - part_name: 
+    x: 0
+    y: 0
+    z: 0
+    score: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+  unityPoseList:
+    nose: {fileID: 0}
+    neck: {fileID: 0}
+    right_shoulder: {fileID: 0}
+    right_elbow: {fileID: 0}
+    right_wrist: {fileID: 0}
+    left_shoulder: {fileID: 0}
+    left_elbow: {fileID: 0}
+    left_wrist: {fileID: 0}
+    right_hip: {fileID: 0}
+    right_knee: {fileID: 0}
+    right_ankle: {fileID: 0}
+    left_hip: {fileID: 0}
+    left_knee: {fileID: 0}
+    left_ankle: {fileID: 0}
+    right_eye: {fileID: 0}
+    left_eye: {fileID: 0}
+    right_ear: {fileID: 0}
+    left_ear: {fileID: 0}
+    left_big_toe: {fileID: 0}
+    left_small_toe: {fileID: 0}
+    left_heel: {fileID: 0}
+    right_big_toe: {fileID: 0}
+    right_small_toe: {fileID: 0}
+    right_heel: {fileID: 0}
+    background: {fileID: 0}
