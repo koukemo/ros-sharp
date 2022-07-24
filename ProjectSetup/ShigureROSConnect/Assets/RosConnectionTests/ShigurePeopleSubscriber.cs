@@ -14,6 +14,8 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
     private bool receivedMsg = false;
 
     // 描画オブジェクト
+    private GameObject console;
+
     private bool create_flag = true;
     private GameObject parentObject;
     private GameObject _prefabBodyPart;
@@ -24,11 +26,14 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
     protected override void Start() 
     {
         _prefabBodyPart = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _prefabBodyPart.transform.localScale = new Vector3(50.0f, 50.0f, 50.0f);
+        _prefabBodyPart.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         _prefabBodyPart.name = "_prefabBodyPart";
         _prefabEdge = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        _prefabEdge.transform.localScale = new Vector3(25.0f, 25.0f, 25.0f);
+        _prefabEdge.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
         _prefabEdge.name = "_prefabEdge";
+
+        console = GameObject.Find("Console");
+        console.SetActive(false);
 
         base.Start();
     }
@@ -53,6 +58,8 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
 
     private void DebugMessage()
     {
+        console.SetActive(true);
+
         string bodyPartInfosStr = "";
         for (int i = 0; i < bodyPartInfos.Length; i++)
         {
@@ -112,9 +119,9 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         for (int i = 0; i < bodyPartInfos.Length; i++)
         {
             bodypart = GameObject.Find(bodyPartInfos[i].part_name);
-            now_pos.x = bodyPartInfos[i].x;
-            now_pos.y = bodyPartInfos[i].y;
-            now_pos.z = bodyPartInfos[i].z;
+            now_pos.x = bodyPartInfos[i].x / 500;
+            now_pos.y = -1 * bodyPartInfos[i].y / 500;
+            now_pos.z = bodyPartInfos[i].z / 500;
 
             if (bodyPartInfos[i].x == 0.0f && bodyPartInfos[i].y == 0.0f && bodyPartInfos[i].z == 0.0f)
             {
@@ -123,7 +130,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
             {
                 if (bodypart.transform.localScale == Vector3.zero)
                 {
-                    bodypart.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    bodypart.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 }
                 bodypart.transform.position = now_pos;
             }
@@ -157,7 +164,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
 
         // body
         CreateEdge(unityPoseList.nose, unityPoseList.neck);
-        CreateEdge(unityPoseList.neck, unityPoseList.background);
+        CreateEdge(unityPoseList.neck, unityPoseList.mid_hip);
 
         // arm
         CreateEdge(unityPoseList.neck, unityPoseList.left_shoulder);
@@ -168,8 +175,8 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         CreateEdge(unityPoseList.right_elbow, unityPoseList.right_wrist);
 
         // leg
-        CreateEdge(unityPoseList.background, unityPoseList.left_hip);
-        CreateEdge(unityPoseList.background, unityPoseList.right_hip);
+        CreateEdge(unityPoseList.mid_hip, unityPoseList.left_hip);
+        CreateEdge(unityPoseList.mid_hip, unityPoseList.right_hip);
         CreateEdge(unityPoseList.left_hip, unityPoseList.left_knee);
         CreateEdge(unityPoseList.right_hip, unityPoseList.right_knee);
         CreateEdge(unityPoseList.left_knee, unityPoseList.left_ankle);
@@ -194,7 +201,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
 
         // body
         MoveEdge(unityPoseList.noseTOneck, unityPoseList.nose, unityPoseList.neck);
-        MoveEdge(unityPoseList.neckTObackground, unityPoseList.neck, unityPoseList.background);
+        MoveEdge(unityPoseList.neckTOmid_hip, unityPoseList.neck, unityPoseList.mid_hip);
 
         // arm
         MoveEdge(unityPoseList.neckTOleft_shoulder, unityPoseList.neck, unityPoseList.left_shoulder);
@@ -205,8 +212,8 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         MoveEdge(unityPoseList.right_elbowTOright_wrist, unityPoseList.right_elbow, unityPoseList.right_wrist);
 
         // leg
-        MoveEdge(unityPoseList.backgroundTOleft_hip, unityPoseList.background, unityPoseList.left_hip);
-        MoveEdge(unityPoseList.backgroundTOright_hip, unityPoseList.background, unityPoseList.right_hip);
+        MoveEdge(unityPoseList.mid_hipTOleft_hip, unityPoseList.mid_hip, unityPoseList.left_hip);
+        MoveEdge(unityPoseList.mid_hipTOright_hip, unityPoseList.mid_hip, unityPoseList.right_hip);
         MoveEdge(unityPoseList.left_hipTOleft_knee, unityPoseList.left_hip, unityPoseList.left_knee);
         MoveEdge(unityPoseList.right_hipTOright_knee, unityPoseList.right_hip, unityPoseList.right_knee);
         MoveEdge(unityPoseList.left_kneeTOleft_ankle, unityPoseList.left_knee, unityPoseList.left_ankle);

@@ -251,7 +251,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -555,7 +555,7 @@ PrefabInstance:
     - target: {fileID: 7834562778878916581, guid: 0915935de0a77fc419c95d73d30120ce,
         type: 3}
       propertyPath: RosBridgeServerUrl
-      value: ws://10.40.0.87:9090
+      value: ws://192.168.11.103:9090
       objectReference: {fileID: 0}
     - target: {fileID: 8072130238423635120, guid: 0915935de0a77fc419c95d73d30120ce,
         type: 3}
@@ -789,3 +789,27 @@ MonoBehaviour:
     right_small_toe: {fileID: 0}
     right_heel: {fileID: 0}
     background: {fileID: 0}
+    noseTOleft_eye: {fileID: 0}
+    noseTOright_eye: {fileID: 0}
+    left_eyeTOleft_ear: {fileID: 0}
+    right_eyeTOright_ear: {fileID: 0}
+    noseTOneck: {fileID: 0}
+    neckTObackground: {fileID: 0}
+    neckTOleft_shoulder: {fileID: 0}
+    neckTOright_shoulder: {fileID: 0}
+    left_shoulderTOleft_elbow: {fileID: 0}
+    right_shoulderTOright_elbow: {fileID: 0}
+    left_elbowTOleft_wrist: {fileID: 0}
+    right_elbowTOright_wrist: {fileID: 0}
+    backgroundTOleft_hip: {fileID: 0}
+    backgroundTOright_hip: {fileID: 0}
+    left_hipTOleft_knee: {fileID: 0}
+    right_hipTOright_knee: {fileID: 0}
+    left_kneeTOleft_ankle: {fileID: 0}
+    right_kneeTOright_ankle: {fileID: 0}
+    left_ankleTOleft_big_toe: {fileID: 0}
+    left_ankleTOleft_heel: {fileID: 0}
+    right_ankleTOright_big_toe: {fileID: 0}
+    right_ankleTOright_heel: {fileID: 0}
+    left_big_toeTOleft_small_toe: {fileID: 0}
+    right_big_toeTOright_small_toe: {fileID: 0}

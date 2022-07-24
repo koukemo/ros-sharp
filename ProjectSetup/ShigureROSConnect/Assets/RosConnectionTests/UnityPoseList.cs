@@ -15,6 +15,8 @@ public class UnityPoseList
     public GameObject left_elbow;
     public GameObject left_wrist;
 
+    public GameObject mid_hip;
+
     public GameObject right_hip;
     public GameObject right_knee;
     public GameObject right_ankle;
@@ -36,8 +38,6 @@ public class UnityPoseList
     public GameObject right_small_toe;
     public GameObject right_heel;
 
-    public GameObject background;
-
     // Body part edge
     public GameObject noseTOleft_eye;
     public GameObject noseTOright_eye;
@@ -45,7 +45,7 @@ public class UnityPoseList
     public GameObject right_eyeTOright_ear;
 
     public GameObject noseTOneck;
-    public GameObject neckTObackground;
+    public GameObject neckTOmid_hip;
 
     public GameObject neckTOleft_shoulder;
     public GameObject neckTOright_shoulder;
@@ -54,8 +54,8 @@ public class UnityPoseList
     public GameObject left_elbowTOleft_wrist;
     public GameObject right_elbowTOright_wrist;
 
-    public GameObject backgroundTOleft_hip;
-    public GameObject backgroundTOright_hip;
+    public GameObject mid_hipTOleft_hip;
+    public GameObject mid_hipTOright_hip;
     public GameObject left_hipTOleft_knee;
     public GameObject right_hipTOright_knee;
     public GameObject left_kneeTOleft_ankle;
@@ -66,7 +66,6 @@ public class UnityPoseList
     public GameObject right_ankleTOright_heel;
     public GameObject left_big_toeTOleft_small_toe;
     public GameObject right_big_toeTOright_small_toe;
-
 
     public void find_bodypart() 
     {
@@ -80,6 +79,8 @@ public class UnityPoseList
         left_shoulder = GameObject.Find( "left_shoulder" );
         left_elbow = GameObject.Find( "left_elbow" );
         left_wrist = GameObject.Find( "left_wrist" );
+
+        mid_hip = GameObject.Find( "mid_hip" );
 
         right_hip = GameObject.Find( "right_hip" );
         right_knee = GameObject.Find( "right_knee" );
@@ -101,8 +102,6 @@ public class UnityPoseList
         right_big_toe = GameObject.Find( "right_big_toe" );
         right_small_toe = GameObject.Find( "right_small_toe" );
         right_heel = GameObject.Find( "right_heel" );
-
-        background = GameObject.Find( "background" );
     }
 
     public void find_bodypart_edge()
@@ -113,7 +112,7 @@ public class UnityPoseList
         right_eyeTOright_ear = GameObject.Find("right_eyeTOright_ear");
 
         noseTOneck = GameObject.Find("noseTOneck");
-        neckTObackground = GameObject.Find("neckTObackground");
+        neckTOmid_hip = GameObject.Find("neckTOmid_hip");
 
         neckTOleft_shoulder = GameObject.Find("neckTOleft_shoulder");
         neckTOright_shoulder = GameObject.Find("neckTOright_shoulder");
@@ -122,8 +121,8 @@ public class UnityPoseList
         left_elbowTOleft_wrist = GameObject.Find("left_elbowTOleft_wrist");
         right_elbowTOright_wrist = GameObject.Find("right_elbowTOright_wrist");
 
-        backgroundTOleft_hip = GameObject.Find("backgroundTOleft_hip");
-        backgroundTOright_hip = GameObject.Find("backgroundTOright_hip");
+        mid_hipTOleft_hip = GameObject.Find("mid_hipTOleft_hip");
+        mid_hipTOright_hip = GameObject.Find("mid_hipTOright_hip");
         left_hipTOleft_knee = GameObject.Find("left_hipTOleft_knee");
         right_hipTOright_knee = GameObject.Find("right_hipTOright_knee");
         left_kneeTOleft_ankle = GameObject.Find("left_kneeTOleft_ankle");
@@ -141,6 +140,8 @@ public class UnityPoseList
         if (part1.transform.localScale == Vector3.zero || part2.transform.localScale == Vector3.zero)
         {
             edge.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        } else{
+            edge.transform.localScale = new Vector3(0.05f, 0.05f, edge.transform.localScale.z);
         }
     }
 
@@ -157,7 +158,7 @@ public class UnityPoseList
 
         // body
         PoseActiveControl(noseTOneck, nose, neck);
-        PoseActiveControl(neckTObackground, neck, background);
+        PoseActiveControl(neckTOmid_hip, neck, mid_hip);
 
         // arm
         PoseActiveControl(neckTOleft_shoulder, neck, left_shoulder);
@@ -168,8 +169,8 @@ public class UnityPoseList
         PoseActiveControl(right_elbowTOright_wrist, right_elbow, right_wrist);
 
         // leg
-        PoseActiveControl(backgroundTOleft_hip, background, left_hip);
-        PoseActiveControl(backgroundTOright_hip, background, right_hip);
+        PoseActiveControl(mid_hipTOleft_hip, mid_hip, left_hip);
+        PoseActiveControl(mid_hipTOright_hip, mid_hip, right_hip);
         PoseActiveControl(left_hipTOleft_knee, left_hip, left_knee);
         PoseActiveControl(right_hipTOright_knee, right_hip, right_knee);
         PoseActiveControl(left_kneeTOleft_ankle, left_knee, left_ankle);
