@@ -7,11 +7,14 @@ using RosSharp.RosBridgeClient;
 public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1.PoseKeyPointsList>
 {
     // shigure messages
-    private int people_number = 0;
+    //private int people_number = 0;
     private string people_id;
+    private int people_count;
     public BodyPartInfo[] bodyPartInfos = new BodyPartInfo[25];
     public PoseColors poseColors;
     private bool receivedMsg = false;
+
+    private int test_count = 0;
 
     // 描画オブジェクト
     private GameObject console;
@@ -41,38 +44,54 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
     protected override void ReceiveMessage(RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1.PoseKeyPointsList message)
     {
         receivedMsg = true;
-        people_id = message.pose_key_points_list[people_number].people_id;
 
-        int part_count = message.pose_key_points_list[people_number].point_data.Length;
+        people_count = message.pose_key_points_list.Length;
 
-        for (int i = 0; i < part_count; i++)
+        for (int people_number = 0; people_number < people_count; people_number++)
         {
-            bodyPartInfos[i].part_name = message.pose_key_points_list[people_number].point_data[i].body_part_name;
-            bodyPartInfos[i].x = message.pose_key_points_list[people_number].point_data[i].projection_point.x;
-            bodyPartInfos[i].y = message.pose_key_points_list[people_number].point_data[i].projection_point.y;
-            bodyPartInfos[i].z = message.pose_key_points_list[people_number].point_data[i].projection_point.z;
-            bodyPartInfos[i].score = message.pose_key_points_list[people_number].point_data[i].score;
-            bodyPartInfos[i].color = poseColors.pose_color_list()[i];
+            people_id = message.pose_key_points_list[people_number].people_id;
+            int part_count = message.pose_key_points_list[people_number].point_data.Length;
+
+            for (int part = 0; part < part_count; part++)
+            {
+                bodyPartInfos[part].part_name = message.pose_key_points_list[people_number].point_data[part].body_part_name;
+                bodyPartInfos[part].x = message.pose_key_points_list[people_number].point_data[part].projection_point.x;
+                bodyPartInfos[part].y = message.pose_key_points_list[people_number].point_data[part].projection_point.y;
+                bodyPartInfos[part].z = message.pose_key_points_list[people_number].point_data[part].projection_point.z;
+                bodyPartInfos[part].score = message.pose_key_points_list[people_number].point_data[part].score;
+                bodyPartInfos[part].color = poseColors.pose_color_list()[part];
+            }
         }
+        test_count = test_count + 1;
     }
 
     private void DebugMessage()
     {
         console.SetActive(true);
 
+        string peopleIdStr = "";
         string bodyPartInfosStr = "";
-        for (int i = 0; i < bodyPartInfos.Length; i++)
+
+        for (int people_number = 0; people_number < people_count; people_number++)
         {
-            bodyPartInfosStr += "  part_name: " + bodyPartInfos[i].part_name + "\n";
-            bodyPartInfosStr += "    x: " + bodyPartInfos[i].x.ToString() + "\n";
-            bodyPartInfosStr += "    y: " + bodyPartInfos[i].y.ToString() + "\n";
-            bodyPartInfosStr += "    z: " + bodyPartInfos[i].z.ToString() + "\n";
-            bodyPartInfosStr += "    score: " + bodyPartInfos[i].score.ToString() + "\n";
-            //bodyPartInfosStr += "    color: " + bodyPartInfos[i].color.ToString() + "\n";
-        }
+            peopleIdStr = "people_id: " + people_id;
+
+            for (int i = 0; i < bodyPartInfos.Length; i++)
+            {
+                bodyPartInfosStr += "  part_name: " + bodyPartInfos[i].part_name + "\n";
+                bodyPartInfosStr += "    x: " + bodyPartInfos[i].x.ToString() + "\n";
+                bodyPartInfosStr += "    y: " + bodyPartInfos[i].y.ToString() + "\n";
+                bodyPartInfosStr += "    z: " + bodyPartInfos[i].z.ToString() + "\n";
+                bodyPartInfosStr += "    score: " + bodyPartInfos[i].score.ToString() + "\n";
+                //bodyPartInfosStr += "    color: " + bodyPartInfos[0][i].color.ToString() + "\n";
+            }
+
+        }        
 
         Debug.Log(
-            "people_id: " + people_id + "\n" + 
+            "---" + test_count.ToString() + "---" + "\n" +
+            "people_count : " + people_count.ToString() + "\n" +
+            peopleIdStr + "\n" + 
             bodyPartInfosStr + "\n" +
             "-----------" + "\n"
         );
@@ -83,7 +102,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
     {
         if (parentObject == null)
         {
-            parentObject = new GameObject("HumanBody");
+            parentObject = new GameObject("Peoples");
         }
         GameObject gameObject = Instantiate(_prefabBodyPart, Vector3.zero, Quaternion.identity);
         gameObject.name = body_part_info_list.part_name;
@@ -95,7 +114,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
     {
         if (parentObject == null)
         {
-            parentObject = new GameObject("HumanBody");
+            parentObject = new GameObject("Peoples");
         }
         GameObject gameObject = Instantiate(_prefabEdge, Vector3.zero, Quaternion.identity);
         gameObject.name = part1.name + "TO" + part2.name;

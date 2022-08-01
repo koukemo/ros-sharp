@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataFormat xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <MarkDataList>
+    <ROSIPData>
+      <ip_address>0</ip_address>
+      <port>9090</port>
+    </ROSIPData>
+    <ROSIPData>
+      <ip_address>1</ip_address>
+      <port>9090</port>
+    </ROSIPData>
+    <ROSIPData>
+      <ip_address>2</ip_address>
+      <port>9090</port>
+    </ROSIPData>
+  </MarkDataList>
+</DataFormat>
