@@ -37,8 +37,6 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
 
         console = GameObject.Find("Console");
         console.SetActive(false);
-
-        base.Start();
     }
 
     public void OnClickStart()

@@ -14,32 +14,60 @@ public class ShigureContactSubscriber : UnitySubscriber<RosSharp.RosBridgeClient
     private GameObject bounding3d;
     private GameObject bounding3d_line;
 
+    private float px;
+    private float py;
+    private float pz;
+    private float width_size;
+    private float height_size;
+    private float depth_size;
+
     protected override void Start() 
     {
-        base.Start();
+        CreateBoundingBox();
+
+        bounding3d = GameObject.Find("BoundingBox3D");
+
+        var scale = bounding3d.transform.localScale;
+
+        scale.x = 0;
+        scale.y = 0;
+        scale.z = 0;
+        bounding3d.transform.localScale = scale;
     }
 
     public void OnClickStart()
     {
-        CreateBoundingBox();
-        //base.Start();
+        base.Start();
     }
 
     protected override void ReceiveMessage(RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1.ContactedList message)
     {
         receivedMsg = true;
         
-        if (message.contacted_list != null)
-        {
-            var contacted_list_num = 0;
+        
+        var contacted_list_num = 0;
 
-            object_cude_list.x = message.contacted_list[contacted_list_num].object_cube.x;
-            object_cude_list.y = message.contacted_list[contacted_list_num].object_cube.y;
-            object_cude_list.z = message.contacted_list[contacted_list_num].object_cube.z;
-            object_cude_list.width = message.contacted_list[contacted_list_num].object_cube.width;
-            object_cude_list.height = message.contacted_list[contacted_list_num].object_cube.height;
-            object_cude_list.depth = message.contacted_list[contacted_list_num].object_cube.depth;
-        }
+        Debug.Log("x : " + message.contacted_list[0].object_cube.x);
+        Debug.Log("y : " + message.contacted_list[0].object_cube.y);
+        Debug.Log("z : " + message.contacted_list[0].object_cube.z);
+        Debug.Log("wi : " + message.contacted_list[0].object_cube.width);
+        Debug.Log("he : " + message.contacted_list[0].object_cube.height);
+        Debug.Log("de : " + message.contacted_list[0].object_cube.depth);
+        Debug.Log("length : " + message.contacted_list.Length);
+
+        px = message.contacted_list[contacted_list_num].object_cube.x;
+        py = message.contacted_list[contacted_list_num].object_cube.y;
+        pz = message.contacted_list[contacted_list_num].object_cube.z;
+        width_size = message.contacted_list[contacted_list_num].object_cube.width;
+        height_size = message.contacted_list[contacted_list_num].object_cube.height;
+        depth_size = message.contacted_list[contacted_list_num].object_cube.depth;
+        
+        Debug.Log("x : " + px);
+        Debug.Log("y : " + py);
+        Debug.Log("z : " + pz);
+        Debug.Log("wi : " + width_size);
+        Debug.Log("he : " + height_size);
+        Debug.Log("de : " + depth_size);
     }
 
     private void CreateBoundingBoxLine(GameObject prefab_line, string create_line_name, float px, float py, float pz, float qx, float qy, float qz)
@@ -89,11 +117,40 @@ public class ShigureContactSubscriber : UnitySubscriber<RosSharp.RosBridgeClient
         bounding3d_line.SetActive(false);
     }
 
-    public void Update()
+    private void TransformBoundingBox(float px, float py, float pz, float width_size, float height_size, float depth_size)
     {
-        if(receivedMsg)
+        bounding3d = GameObject.Find("BoundingBox3D");
+
+        // BoundingBox3Dが生成済みの場合
+        if (bounding3d != null)
         {
-            receivedMsg = false;
+            var pos = bounding3d.transform.position;
+            pos.x += px / 1000;
+            pos.y -= py / 1000;
+            pos.z += pz / 1000;
+            bounding3d.transform.position = pos;
+
+            var scale = bounding3d.transform.localScale;
+
+            scale.x = width_size / 1000;
+            scale.y = height_size / 1000;
+            scale.z = (pz - depth_size) / 1000;
+            bounding3d.transform.localScale = scale;
+        }
+    }
+
+    public void Update() 
+    {
+        if (px != 0 && py != 0 && pz != 0 && width_size != 0 && height_size != 0 && depth_size != 0)
+        {
+            TransformBoundingBox(px, py, pz, width_size, height_size, depth_size);
+            
+            px = 0;
+            py = 0;
+            pz = 0;
+            width_size = 0;
+            height_size = 0;
+            depth_size = 0;
         }
     }
 }
