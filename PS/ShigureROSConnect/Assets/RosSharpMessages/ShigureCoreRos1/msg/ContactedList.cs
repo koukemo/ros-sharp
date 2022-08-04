@@ -15,7 +15,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1
 {
     public class ContactedList : Message
     {
-        public const string RosMessageName = "shigure_core_ros1_msgs/ContactedList";
+        public override string RosMessageName => "shigure_core_ros1_msgs/ContactedList";
 
         public Header header { get; set; }
         public Contacted[] contacted_list { get; set; }

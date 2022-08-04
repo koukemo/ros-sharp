@@ -21,6 +21,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1
         public string action { get; set; }
         public BoundingBox people_bounding_box { get; set; }
         public BoundingBox object_bounding_box { get; set; }
+        public Cube object_cube { get; set; }
 
         public Contacted()
         {
@@ -30,9 +31,10 @@ namespace RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1
             this.action = "";
             this.people_bounding_box = new BoundingBox();
             this.object_bounding_box = new BoundingBox();
+            this.object_cube = new Cube();
         }
 
-        public Contacted(string event_id, string people_id, string object_id, string action, BoundingBox people_bounding_box, BoundingBox object_bounding_box)
+        public Contacted(string event_id, string people_id, string object_id, string action, BoundingBox people_bounding_box, BoundingBox object_bounding_box, Cube object_cube)
         {
             this.event_id = event_id;
             this.people_id = people_id;
@@ -40,6 +42,7 @@ namespace RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1
             this.action = action;
             this.people_bounding_box = people_bounding_box;
             this.object_bounding_box = object_bounding_box;
+            this.object_cube = object_cube;
         }
     }
 }

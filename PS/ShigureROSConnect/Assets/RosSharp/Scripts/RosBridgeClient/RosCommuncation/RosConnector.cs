@@ -91,6 +91,11 @@ namespace RosSharp.RosBridgeClient
             RosSocket.Close();
         }
 
+        public void OnClickQuit()
+        {
+            RosSocket.Close();
+        }
+
         private void OnConnected(object sender, EventArgs e)
         {
             IsConnected.Set();

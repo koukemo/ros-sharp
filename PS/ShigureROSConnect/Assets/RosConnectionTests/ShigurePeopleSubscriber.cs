@@ -41,6 +41,11 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         base.Start();
     }
 
+    public void OnClickStart()
+    {
+        base.Start();
+    }
+
     protected override void ReceiveMessage(RosSharp.RosBridgeClient.MessageTypes.ShigureCoreRos1.PoseKeyPointsList message)
     {
         receivedMsg = true;
