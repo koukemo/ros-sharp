@@ -54,7 +54,8 @@ public class Tf2Subscriber : MonoBehaviour
     }
     public void TFtransform() 
     {
-        tfs[_name].localPosition = _v.Ros2Unity();
+        Vector3 v = new Vector3(0f, 0.5f, 0f);
+        tfs[_name].localPosition = _v.Ros2Unity() - v;
         tfs[_name].localRotation = _q.Ros2Unity();
     }
 

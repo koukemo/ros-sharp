@@ -35,6 +35,12 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         _prefabEdge.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
         _prefabEdge.name = "_prefabEdge";
 
+        if (parentObject == null)
+        {
+            parentObject = new GameObject("Peoples");
+            parentObject.transform.parent = GameObject.Find("tf_move").transform;
+        }
+
         console = GameObject.Find("Console");
         console.SetActive(false);
     }
@@ -103,10 +109,8 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
 
     private void CreateBodyPart(BodyPartInfo body_part_info_list)
     {
-        if (parentObject == null)
-        {
-            parentObject = new GameObject("Peoples");
-        }
+        parentObject = GameObject.Find("Peoples");
+        
         GameObject gameObject = Instantiate(_prefabBodyPart, Vector3.zero, Quaternion.identity);
         gameObject.name = body_part_info_list.part_name;
         gameObject.transform.parent = parentObject.transform;
@@ -115,10 +119,8 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
 
     private void CreateEdge(GameObject part1, GameObject part2)
     {
-        if (parentObject == null)
-        {
-            parentObject = new GameObject("Peoples");
-        }
+        parentObject = GameObject.Find("Peoples");
+
         GameObject gameObject = Instantiate(_prefabEdge, Vector3.zero, Quaternion.identity);
         gameObject.name = part1.name + "TO" + part2.name;
         gameObject.GetComponent<Renderer>().material.color = new Color(173, 255, 47); // 色変更
@@ -141,9 +143,9 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         for (int i = 0; i < bodyPartInfos.Length; i++)
         {
             bodypart = GameObject.Find(bodyPartInfos[i].part_name);
-            now_pos.x = bodyPartInfos[i].x / 1000;
-            now_pos.y = -1 * bodyPartInfos[i].y / 1000;
-            now_pos.z = bodyPartInfos[i].z / 1000;
+            now_pos.x = bodyPartInfos[i].x / 750;
+            now_pos.y = -1 * bodyPartInfos[i].y / 750;
+            now_pos.z = bodyPartInfos[i].z / 750;
 
             if (bodyPartInfos[i].x == 0.0f && bodyPartInfos[i].y == 0.0f && bodyPartInfos[i].z == 0.0f)
             {
@@ -154,7 +156,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
                 {
                     bodypart.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 }
-                bodypart.transform.position = now_pos;
+                bodypart.transform.localPosition = now_pos;
             }
             
         }
@@ -166,7 +168,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         float distance = Vector3.Distance(part1.transform.position, part2.transform.position);
         edge.transform.localScale = new Vector3(edge.transform.localScale.x, edge.transform.localScale.y, distance);  // エッジの長さを変更
 
-        edge.transform.position = (part1.transform.position + part2.transform.position) * 0.5f;   // エッジの中心を変更
+        edge.transform.localPosition = (part1.transform.localPosition + part2.transform.localPosition) * 0.5f;   // エッジの中心を変更
 
         edge.transform.LookAt(part1.transform);   // エッジの角度を変更
 
@@ -255,7 +257,7 @@ public class ShigurePeopleSubscriber : UnitySubscriber<RosSharp.RosBridgeClient.
         if(receivedMsg)
         {
             // debug logにpeople_id[0]と, その人の関節点情報を出力
-            DebugMessage();
+            //DebugMessage();
 
             // Cube Humanoidの骨格作成
             if (create_flag){

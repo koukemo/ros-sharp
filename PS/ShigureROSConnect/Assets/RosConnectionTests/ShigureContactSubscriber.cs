@@ -26,6 +26,8 @@ public class ShigureContactSubscriber : UnitySubscriber<RosSharp.RosBridgeClient
         CreateBoundingBox();
 
         bounding3d = GameObject.Find("BoundingBox3D");
+        bounding3d.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        bounding3d.transform.SetParent(GameObject.Find("tf_move").transform);
 
         var scale = bounding3d.transform.localScale;
 
@@ -125,16 +127,16 @@ public class ShigureContactSubscriber : UnitySubscriber<RosSharp.RosBridgeClient
         if (bounding3d != null)
         {
             var pos = bounding3d.transform.position;
-            pos.x += px / 1000;
-            pos.y -= py / 1000;
-            pos.z += pz / 1000;
+            pos.x = px / 1000;
+            pos.y = -1 * py / 1000;
+            pos.z = pz / 1000;
             bounding3d.transform.position = pos;
 
             var scale = bounding3d.transform.localScale;
 
-            scale.x = width_size / 1000;
-            scale.y = height_size / 1000;
-            scale.z = (pz - depth_size) / 1000;
+            scale.x = width_size / 100;
+            scale.y = height_size / 100;
+            scale.z = (pz - depth_size) / 200;
             bounding3d.transform.localScale = scale;
         }
     }
